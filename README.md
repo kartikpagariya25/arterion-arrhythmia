@@ -61,6 +61,13 @@ Tests: `cd backend && pytest tests` (27 tests, including the original preprocess
 
 `training/` contains the whole pipeline: `dataset_builder.py` → `train.py` (focal loss, AdamW, cosine schedule, early stopping on validation macro-F1) → `evaluate.py` → `export_onnx.py` (parity-checked). See `training/IMPLEMENTATION.md`.
 
+## Documentation
+
+- [Model card](MODEL_CARD.md): data, results and limitations
+- [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security and privacy](SECURITY.md)
+
 ## Data and licences
 
 Code: MIT. Model trained on the [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/) (Moody & Mark, PhysioNet; Open Data Commons Attribution). The bundled samples are excerpts of records 100 and 119.
