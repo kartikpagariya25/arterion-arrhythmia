@@ -1,0 +1,12 @@
+:root {
+  --acc-font: 'Barlow',system-ui,sans-serif; --acc-head: 'Barlow Condensed',system-ui,sans-serif;
+  --acc-bg: #020504; --acc-panel: #07110c; --acc-panel2: #0b1a12; --acc-field: #020504;
+  --acc-ink: #d6f5df; --acc-dim: #6f9a80; --acc-line: #14301f;
+  --acc-accent: #39ff6a; --acc-accent-ink: #021208;
+  --acc-danger: #ff4d4d; --acc-ok: #39ff6a; --acc-warn: #ffc83d;
+  --acc-radius: 2px; --acc-border: 1px solid var(--acc-line); --acc-shadow: 0 0 0 1px #14301f, 0 12px 34px rgba(0,0,0,.7); --acc-card-shadow: inset 3px 0 0 var(--acc-line);
+  --acc-head-weight: 600; --acc-head-style: normal; --acc-head-case: uppercase; --acc-head-track: .08em;
+  --acc-track: .1em; --acc-case: uppercase;
+  --acc-page-bg: repeating-linear-gradient(0deg, rgba(57,255,106,.035) 0 1px, transparent 1px 24px), #000; --acc-scrim: rgba(0,0,0,.82); --acc-glow: rgba(57,255,106,.2);
+  color-scheme: dark;
+}
