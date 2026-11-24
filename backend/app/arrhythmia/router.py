@@ -1,9 +1,11 @@
 import os
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field
 
+from ..accounts.deps import optional_user
+from ..accounts.history import record_analysis
 from .model import predict
 
 router = APIRouter(prefix="/arrhythmia", tags=["arrhythmia"])
@@ -16,8 +18,10 @@ class PredictRequest(BaseModel):
 
 
 @router.post("/predict")
-def predict_arrhythmia(req: PredictRequest):
-    return predict(req.file_url, req.sampling_rate)
+def predict_arrhythmia(req: PredictRequest, response: Response, user=Depends(optional_user)):
+    result = predict(req.file_url, req.sampling_rate)
+    record_analysis(user, "arrhythmia", req.file_url, result, response)
+    return result
 
 
 def _sample_names():
