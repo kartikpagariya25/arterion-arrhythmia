@@ -1,5 +1,7 @@
 # Arterion ECG Monitor
 
+[![tests](https://github.com/kartikpagariya25/arterion-arrhythmia/actions/workflows/test.yml/badge.svg)](https://github.com/kartikpagariya25/arterion-arrhythmia/actions/workflows/test.yml) ![licence](https://img.shields.io/badge/licence-MIT-blue) ![python](https://img.shields.io/badge/python-3.11-blue)
+
 Beat-by-beat arrhythmia classification for single-lead ECG, with rhythm-level alerts (ventricular tachycardia, bigeminy, trigeminy, AFib-like irregularity, tachy/bradycardia). Upload a CSV, get a scrolling trace with every beat labelled N / S / V / F / Q.
 
 ![Screenshot](docs/screenshot.jpg)
