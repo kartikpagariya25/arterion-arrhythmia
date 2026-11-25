@@ -3,6 +3,7 @@ window.ARTERION_APP = {
   slug: "arrhythmia",
   name: "Arterion ECG Monitor",
   home: "index.html",
+  graphic: {type:"ecg", colors:["#c93a6b"]},
   tasks: {
     "arrhythmia": "ECG rhythm analysis"
   },
