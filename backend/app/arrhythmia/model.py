@@ -152,7 +152,7 @@ def predict(file_url: str, sampling_rate: int = SAMPLING_RATE) -> dict:
     if _session is None:
         return {
             "rhythm_type": "unknown", "flagged_beats": [], "beats": [],
-            "summary": "Arrhythmia model weights not found — training not yet completed.", "confidence": 0.0,
+            "summary": "Arrhythmia model weights not found, so training has not been completed.", "confidence": 0.0,
         }
 
     cleaned = bandpass_filter(resample_to_target(signal, sampling_rate, SAMPLING_RATE), SAMPLING_RATE)
