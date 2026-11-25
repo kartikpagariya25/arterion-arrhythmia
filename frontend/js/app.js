@@ -1,7 +1,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const API = window.API_BASE.replace(/\/$/, "");
-  const COLORS = { N: "#39ff6a", S: "#ffc83d", V: "#ff4d4d", F: "#d96bff", Q: "#8fa39a" };
+  const COLORS = { N: "#2a8f74", S: "#d98a12", V: "#c93a6b", F: "#7b5bd6", Q: "#7d8696" };
   const CLASS_NAMES = { N: "Normal", S: "Supraventricular", V: "Ventricular", F: "Fusion", Q: "Unclassifiable" };
   const WINDOW_SEC = 8;
   const show = (el, on) => (el.hidden = !on);
@@ -12,9 +12,9 @@
     const el = $("status");
     try {
       if (!(await fetch(API + "/health", { cache: "no-store" })).ok) throw 0;
-      el.className = "status ok"; el.lastElementChild.textContent = "API ONLINE";
+      el.className = "status ok"; el.lastElementChild.textContent = "API online";
     } catch {
-      el.className = "status bad"; el.lastElementChild.textContent = "API OFFLINE · " + API;
+      el.className = "status bad"; el.lastElementChild.textContent = "API offline at " + API;
       setTimeout(ping, 4000);
     }
   }
@@ -47,11 +47,11 @@
 
   async function analyse(file) {
     setError(""); show($("notice"), false);
-    show($("busy"), true); $("busyText").textContent = "UPLOADING";
+    show($("busy"), true); $("busyText").textContent = "Uploading";
     try {
       const fd = new FormData(); fd.append("file", file);
       const { file_url } = await post("/uploads", fd, true);
-      $("busyText").textContent = "ANALYSING";
+      $("busyText").textContent = "Analysing";
       const res = await post("/arrhythmia/predict", { file_url, sampling_rate: parseInt($("fs").value, 10) });
       render(res);
     } catch (e) {
@@ -72,6 +72,7 @@
 
     show(drop, false);
     $("hr").textContent = r.heart_rate_bpm ? Math.round(r.heart_rate_bpm) : "--";
+    if (r.heart_rate_bpm) document.querySelector(".tile.hr").style.setProperty("--beat", (60 / Math.min(Math.max(r.heart_rate_bpm, 30), 220)).toFixed(2) + "s");
     $("rhythm").textContent = r.rhythm_type;
     const crit = (r.rhythm_alerts || []).some((a) => a.severity === "critical");
     const warn = (r.rhythm_alerts || []).length > 0 || /Ectopic/.test(r.rhythm_type);
@@ -88,7 +89,7 @@
     if (!(r.rhythm_alerts || []).length) al.innerHTML = '<li class="muted">No rhythm alerts</li>';
     (r.rhythm_alerts || []).forEach((a) => {
       const li = document.createElement("li"); li.className = a.severity;
-      li.innerHTML = `<span>${a.type}</span><span>${a.start.toFixed(1)}–${a.end.toFixed(1)} s</span>`; al.appendChild(li);
+      li.innerHTML = `<span>${a.type}</span><span>${a.start.toFixed(1)} to ${a.end.toFixed(1)} s</span>`; al.appendChild(li);
     });
 
     const bl = $("beats"); bl.innerHTML = "";
@@ -96,7 +97,7 @@
     if (!r.flagged_beats.length) bl.innerHTML = '<li class="muted">No abnormal beats</li>';
     r.flagged_beats.forEach((b) => {
       const li = document.createElement("li"); li.style.setProperty("--c", COLORS[b.class]);
-      li.innerHTML = `<span>${b.class} · ${CLASS_NAMES[b.class]}</span><span>${b.time_sec.toFixed(2)} s · ${(b.confidence * 100).toFixed(0)}%</span>`;
+      li.innerHTML = `<span>${b.class} ${CLASS_NAMES[b.class]}</span><span>${b.time_sec.toFixed(2)} s, ${(b.confidence * 100).toFixed(0)}%</span>`;
       li.addEventListener("click", () => jumpTo(b.time_sec)); bl.appendChild(li);
     });
 
@@ -136,11 +137,11 @@
     ctx.lineWidth = 1;
     for (let t = 0; t <= span + 0.001; t += 0.04) {
       const x = t * px, major = Math.abs(t / 0.2 - Math.round(t / 0.2)) < 1e-6;
-      ctx.strokeStyle = major ? "rgba(57,255,106,.16)" : "rgba(57,255,106,.06)";
+      ctx.strokeStyle = major ? "rgba(201,58,107,.2)" : "rgba(201,58,107,.07)";
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
     }
     for (let y = 0; y <= h; y += h / 10) {
-      ctx.strokeStyle = "rgba(57,255,106,.08)"; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      ctx.strokeStyle = "rgba(201,58,107,.1)"; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
     }
     if (!data) return;
 
@@ -148,7 +149,7 @@
     const y = (v) => h - ((v - scale.lo) / (scale.hi - scale.lo)) * h;
     const lim = offset * 1 + span * sweep;      // sweep reveal
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, (lim - offset) * px, h); ctx.clip();
-    ctx.strokeStyle = "#39ff6a"; ctx.lineWidth = 1.8; ctx.shadowColor = "#39ff6a"; ctx.shadowBlur = 6; ctx.lineJoin = "round";
+    ctx.strokeStyle = "#2b2873"; ctx.lineWidth = 1.9; ctx.shadowColor = "rgba(43,40,115,.28)"; ctx.shadowBlur = 4; ctx.lineJoin = "round";
     ctx.beginPath();
     for (let i = i0; i < i1; i++) {
       const x = (i / fs - offset) * px;
@@ -157,7 +158,7 @@
     ctx.stroke(); ctx.restore();
 
     // beat markers
-    ctx.font = "600 13px 'Barlow Condensed', sans-serif"; ctx.textAlign = "center";
+    ctx.font = "700 13px 'Outfit', sans-serif"; ctx.textAlign = "center";
     data.beats.forEach((b) => {
       if (b.time_sec < offset || b.time_sec > offset + span || b.time_sec > lim) return;
       const x = (b.time_sec - offset) * px, col = COLORS[b.class];
@@ -167,7 +168,7 @@
     });
 
     // window label
-    $("winLabel").textContent = `${offset.toFixed(1)} – ${(offset + span).toFixed(1)} s of ${data.duration_sec.toFixed(1)} s`;
+    $("winLabel").textContent = `${offset.toFixed(1)} to ${(offset + span).toFixed(1)} s of ${data.duration_sec.toFixed(1)} s`;
   }
   window.addEventListener("resize", draw);
   draw();
@@ -181,7 +182,7 @@
     data.beats.forEach((b) => { const d = Math.abs(b.time_sec - t); if (d < bd) { bd = d; best = b; } });
     const tip = $("tip");
     if (!best) return show(tip, false);
-    tip.textContent = `${best.class} · ${CLASS_NAMES[best.class]} · ${(best.confidence * 100).toFixed(0)}% · ${best.time_sec.toFixed(2)} s`;
+    tip.textContent = `${best.class} ${CLASS_NAMES[best.class]}, ${(best.confidence * 100).toFixed(0)}%, ${best.time_sec.toFixed(2)} s`;
     show(tip, true);
     const sr = $("screen").getBoundingClientRect();
     tip.style.left = Math.min(e.clientX - sr.left + 12, sr.width - tip.offsetWidth - 8) + "px"; tip.style.top = Math.max(e.clientY - sr.top - 34, 4) + "px";
