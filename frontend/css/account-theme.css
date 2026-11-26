@@ -1,13 +1,14 @@
 :root {
-  --acc-font: 'Outfit',system-ui,sans-serif; --acc-head: 'Outfit',system-ui,sans-serif;
-  --acc-bg: #efeefb; --acc-panel: #ffffff; --acc-panel2: #f6f3fc; --acc-field: #ffffff;
-  --acc-ink: #221f45; --acc-dim: #625f87; --acc-line: rgba(34,31,69,.13);
-  --acc-accent: #c93a6b; --acc-accent-ink: #ffffff;
-  --acc-danger: #b3263f; --acc-ok: #2a8f74; --acc-warn: #b8741a;
-  --acc-radius: 20px; --acc-border: 1px solid rgba(255,255,255,.9); --acc-shadow: 0 30px 60px -28px rgba(70,50,130,.42); --acc-card-shadow: 0 24px 44px -30px rgba(70,50,130,.4);
-  --acc-head-weight: 700; --acc-head-style: normal; --acc-head-case: none; --acc-head-track: -.025em;
-  --acc-track: 0; --acc-case: none; --acc-pill: 999px; --acc-top: 12px;
-  --bg: #efeefb; --a1: #ffd9d0; --a2: #cfd2fb; --a3: #e4d3fb; --ease: cubic-bezier(.16, 1, .3, 1); --solid: #ffffff;
-  --acc-page-bg: radial-gradient(900px 520px at 88% -10%, #ffd9d0 0, transparent 60%), radial-gradient(800px 520px at -5% 8%, #cfd2fb 0, transparent 60%), #efeefb; --acc-scrim: rgba(34,31,69,.4); --acc-glow: rgba(201,58,107,.2);
+  --acc-font: 'Plus Jakarta Sans', system-ui, sans-serif; --acc-head: 'DM Serif Display', Georgia, serif;
+  --acc-bg: #faf9ff; --acc-panel: #ffffff; --acc-panel2: #f5f3ff; --acc-field: #ffffff;
+  --acc-ink: #1e1b4b; --acc-dim: #6b6890; --acc-line: #e4e1f5;
+  --acc-accent: #7c3aed; --acc-accent-ink: #ffffff;
+  --acc-danger: #dc2626; --acc-ok: #16a34a; --acc-warn: #d97706;
+  --acc-radius: 16px; --acc-pill: 10px; --acc-top: 14px;
+  --acc-border: 1px solid #e4e1f5; --acc-shadow: 0 24px 50px -24px rgba(15, 23, 42, .45); --acc-card-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 22px 44px -34px rgba(15, 23, 42, .35);
+  --acc-head-weight: 400; --acc-head-style: normal; --acc-head-case: none; --acc-head-track: -.01em;
+  --acc-track: 0; --acc-case: none; --acc-page-bg: transparent; --acc-scrim: rgba(15, 23, 42, .5); --acc-glow: color-mix(in srgb, #7c3aed 22%, transparent);
   color-scheme: light;
 }
+.lp-body .acc-page { padding-top: 118px; }
+.lp-body .acc-card { background: #fff; }
