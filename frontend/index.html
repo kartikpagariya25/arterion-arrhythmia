@@ -66,6 +66,65 @@
     </div>
   </div>
 </section>
+<section class="lp-section lp-soft" id="analyze">
+  <div class="lp-wrap"><div class="lp-head"><span class="lp-pill"><i class="ph-bold ph-flask" aria-hidden="true"></i>Live Tool</span><h2 class="lp-h2">Run an Analysis</h2><p class="lp-sub">Drop in a recording or load a sample, then pan along the trace.</p></div></div>
+  <div class="lp-tool">
+    <main class="deck">
+      <section class="card spot trace-panel rise" style="--i:3" aria-label="ECG trace">
+        <div class="panel-h">
+          <h2>Lead II at <span id="fsLabel">360 Hz</span></h2>
+          <div class="tools">
+            <label>Sampling rate
+              <select id="fs"><option>360</option><option>250</option><option>500</option><option>125</option><option>1000</option></select>
+            </label>
+          </div>
+        </div>
+
+        <div class="screen" id="screen">
+          <canvas id="cv" aria-label="ECG waveform with beat classifications"></canvas>
+          <label class="drop" id="drop" for="file">
+            <span class="orb"><i class="ph-bold ph-file-arrow-up" aria-hidden="true"></i></span>
+            <strong>Drop an ECG file</strong>
+            <span class="hint">CSV or text, one lead, a header and time column are fine</span>
+            <input id="file" type="file" accept=".csv,.txt,text/csv,text/plain" hidden>
+          </label>
+          <div class="busy" id="busy" hidden><div class="pulse"><i></i><i></i></div><b id="busyText">Analysing</b></div>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+
+        <div class="pan" id="pan" hidden>
+          <input type="range" id="pos" min="0" max="100" value="0" aria-label="Scroll through the recording">
+          <span id="winLabel"></span>
+        </div>
+
+        <div class="legend">
+          <span><i class="k N"></i>N normal</span><span><i class="k S"></i>S supraventricular</span><span><i class="k V"></i>V ventricular</span><span><i class="k F"></i>F fusion</span><span><i class="k Q"></i>Q unclassifiable</span>
+        </div>
+
+        <div class="samples" id="samples"><span>Try a sample</span><button class="press" data-sample="sinus_rhythm">Sinus rhythm</button><button class="press" data-sample="ventricular_ectopy">Ventricular ectopy</button></div>
+        <div class="notice" id="notice" hidden></div>
+        <div class="notice err" id="error" role="alert" hidden></div>
+      </section>
+
+      <aside class="vitals" aria-live="polite">
+        <div class="tile spot hr rise" style="--i:4"><small>Heart rate</small><div class="hr-row"><i class="ph-bold ph-heart beat" aria-hidden="true"></i><b id="hr">--</b><span>bpm</span></div></div>
+        <div class="banner idle rise" style="--i:5" id="banner"><small>Rhythm</small><b id="rhythm">Waiting for a recording</b></div>
+        <div class="tile spot conf rise" style="--i:6"><small>Mean beat confidence</small><b id="conf">--</b></div>
+
+        <div class="counts rise" style="--i:7" id="counts"></div>
+
+        <div class="panel spot rise" style="--i:8">
+          <h3>Rhythm alerts</h3>
+          <ul class="alerts" id="alerts"><li class="muted">None yet</li></ul>
+        </div>
+        <div class="panel spot rise" style="--i:9">
+          <h3>Flagged beats <span id="nflag"></span></h3>
+          <ul class="beats" id="beats"><li class="muted">None yet</li></ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+</section>
 <script src="js/config.js"></script>
 <script src="js/account-config.js"></script>
 <script src="js/auth.js"></script>
