@@ -4,97 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arterion ECG Monitor</title>
-<meta name="description" content="Beat-by-beat arrhythmia classification for single-lead ECG. Research prototype.">
-<meta name="theme-color" content="#efeefb">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Arterion ECG Monitor">
-<meta property="og:description" content="Beat-by-beat arrhythmia classification for single-lead ECG, plus rule-based rhythm alerts. Research prototype.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%23c93a6b'/%3E%3Cpath d='M3 17h6l3-8 5 15 3-7h9' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/fx.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/landing.css">
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/account-theme.css">
 <link rel="stylesheet" href="css/account.css">
 </head>
 <body>
 <noscript><p style="padding:1rem;font:16px sans-serif">This page needs JavaScript to upload a file and show the result.</p></noscript>
-
-<header class="top rise" style="--i:0">
-  <div class="top-in">
-    <div class="brand"><span class="mark"><i class="ph-bold ph-pulse" aria-hidden="true"></i></span><b>Arterion</b><span class="sub">ECG Monitor</span></div>
-    <div class="status" id="status" role="status"><i></i><span>Connecting</span></div>
-  </div>
-</header>
-
-<section class="hero">
-  <h1 class="rise" style="--i:1">Every heartbeat, labelled</h1>
-  <p class="rise" style="--i:2">Upload a single-lead ECG and see each beat classified, with rhythm alerts that point to where to look.</p>
-</section>
-
-<main class="deck">
-  <section class="card spot trace-panel rise" style="--i:3" aria-label="ECG trace">
-    <div class="panel-h">
-      <h2>Lead II at <span id="fsLabel">360 Hz</span></h2>
-      <div class="tools">
-        <label>Sampling rate
-          <select id="fs"><option>360</option><option>250</option><option>500</option><option>125</option><option>1000</option></select>
-        </label>
-      </div>
-    </div>
-
-    <div class="screen" id="screen">
-      <canvas id="cv" aria-label="ECG waveform with beat classifications"></canvas>
-      <label class="drop" id="drop" for="file">
-        <span class="orb"><i class="ph-bold ph-file-arrow-up" aria-hidden="true"></i></span>
-        <strong>Drop an ECG file</strong>
-        <span class="hint">CSV or text, one lead, a header and time column are fine</span>
-        <input id="file" type="file" accept=".csv,.txt,text/csv,text/plain" hidden>
-      </label>
-      <div class="busy" id="busy" hidden><div class="pulse"><i></i><i></i></div><b id="busyText">Analysing</b></div>
-      <div class="tip" id="tip" hidden></div>
-    </div>
-
-    <div class="pan" id="pan" hidden>
-      <input type="range" id="pos" min="0" max="100" value="0" aria-label="Scroll through the recording">
-      <span id="winLabel"></span>
-    </div>
-
-    <div class="legend">
-      <span><i class="k N"></i>N normal</span><span><i class="k S"></i>S supraventricular</span><span><i class="k V"></i>V ventricular</span><span><i class="k F"></i>F fusion</span><span><i class="k Q"></i>Q unclassifiable</span>
-    </div>
-
-    <div class="samples" id="samples"><span>Try a sample</span><button class="press" data-sample="sinus_rhythm">Sinus rhythm</button><button class="press" data-sample="ventricular_ectopy">Ventricular ectopy</button></div>
-    <div class="notice" id="notice" hidden></div>
-    <div class="notice err" id="error" role="alert" hidden></div>
-  </section>
-
-  <aside class="vitals" aria-live="polite">
-    <div class="tile spot hr rise" style="--i:4"><small>Heart rate</small><div class="hr-row"><i class="ph-bold ph-heart beat" aria-hidden="true"></i><b id="hr">--</b><span>bpm</span></div></div>
-    <div class="banner idle rise" style="--i:5" id="banner"><small>Rhythm</small><b id="rhythm">Waiting for a recording</b></div>
-    <div class="tile spot conf rise" style="--i:6"><small>Mean beat confidence</small><b id="conf">--</b></div>
-
-    <div class="counts rise" style="--i:7" id="counts"></div>
-
-    <div class="panel spot rise" style="--i:8">
-      <h3>Rhythm alerts</h3>
-      <ul class="alerts" id="alerts"><li class="muted">None yet</li></ul>
-    </div>
-    <div class="panel spot rise" style="--i:9">
-      <h3>Flagged beats <span id="nflag"></span></h3>
-      <ul class="beats" id="beats"><li class="muted">None yet</li></ul>
-    </div>
-  </aside>
-</main>
-
-<footer class="foot">Research prototype, not a medical device. Trained on MIT-BIH with inter-patient evaluation; supraventricular and fusion beats are detected poorly. <a href="https://github.com/kartikpagariya25/arterion-arrhythmia">Source on GitHub</a></footer>
-
 <script src="js/config.js"></script>
 <script src="js/account-config.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/fx.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
