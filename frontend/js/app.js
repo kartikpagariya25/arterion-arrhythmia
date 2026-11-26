@@ -1,7 +1,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const API = window.API_BASE.replace(/\/$/, "");
-  const COLORS = { N: "#2a8f74", S: "#d98a12", V: "#c93a6b", F: "#7b5bd6", Q: "#7d8696" };
+  const COLORS = { N: "#16a34a", S: "#d97706", V: "#e11d48", F: "#0ea5e9", Q: "#64748b" };
   const CLASS_NAMES = { N: "Normal", S: "Supraventricular", V: "Ventricular", F: "Fusion", Q: "Unclassifiable" };
   const WINDOW_SEC = 8;
   const show = (el, on) => (el.hidden = !on);
@@ -137,11 +137,11 @@
     ctx.lineWidth = 1;
     for (let t = 0; t <= span + 0.001; t += 0.04) {
       const x = t * px, major = Math.abs(t / 0.2 - Math.round(t / 0.2)) < 1e-6;
-      ctx.strokeStyle = major ? "rgba(201,58,107,.2)" : "rgba(201,58,107,.07)";
+      ctx.strokeStyle = major ? "rgba(124,58,237,.2)" : "rgba(124,58,237,.07)";
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
     }
     for (let y = 0; y <= h; y += h / 10) {
-      ctx.strokeStyle = "rgba(201,58,107,.1)"; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      ctx.strokeStyle = "rgba(124,58,237,.1)"; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
     }
     if (!data) return;
 
@@ -149,7 +149,7 @@
     const y = (v) => h - ((v - scale.lo) / (scale.hi - scale.lo)) * h;
     const lim = offset * 1 + span * sweep;      // sweep reveal
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, (lim - offset) * px, h); ctx.clip();
-    ctx.strokeStyle = "#2b2873"; ctx.lineWidth = 1.9; ctx.shadowColor = "rgba(43,40,115,.28)"; ctx.shadowBlur = 4; ctx.lineJoin = "round";
+    ctx.strokeStyle = "#3b1f8f"; ctx.lineWidth = 1.9; ctx.shadowColor = "rgba(59,31,143,.28)"; ctx.shadowBlur = 4; ctx.lineJoin = "round";
     ctx.beginPath();
     for (let i = i0; i < i1; i++) {
       const x = (i / fs - offset) * px;
