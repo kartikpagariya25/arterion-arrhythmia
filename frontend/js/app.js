@@ -149,7 +149,7 @@
     const y = (v) => h - ((v - scale.lo) / (scale.hi - scale.lo)) * h;
     const lim = offset * 1 + span * sweep;      // sweep reveal
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, (lim - offset) * px, h); ctx.clip();
-    ctx.strokeStyle = "#3b1f8f"; ctx.lineWidth = 1.9; ctx.shadowColor = "rgba(59,31,143,.28)"; ctx.shadowBlur = 4; ctx.lineJoin = "round";
+    var dk = document.documentElement.getAttribute("data-theme") === "dark"; ctx.strokeStyle = dk ? "#c4b5fd" : "#3b1f8f"; ctx.lineWidth = 1.9; ctx.shadowColor = dk ? "rgba(196,181,253,.35)" : "rgba(59,31,143,.28)"; ctx.shadowBlur = 4; ctx.lineJoin = "round";
     ctx.beginPath();
     for (let i = i0; i < i1; i++) {
       const x = (i / fs - offset) * px;
@@ -171,6 +171,7 @@
     $("winLabel").textContent = `${offset.toFixed(1)} to ${(offset + span).toFixed(1)} s of ${data.duration_sec.toFixed(1)} s`;
   }
   window.addEventListener("resize", draw);
+  window.addEventListener("themechange", draw);
   draw();
 
   /* tooltip */
