@@ -133,6 +133,16 @@
       <p>Inter-patient evaluation is the one that matters clinically, so it is our headline, not the flattering random split.</p>
       <ul><li><i class="ph-bold ph-check-circle" aria-hidden="true"></i><span>Trained on DS1, tested on disjoint DS2 patients</span></li><li><i class="ph-bold ph-check-circle" aria-hidden="true"></i><span>Ventricular ectopy is detected well</span></li><li><i class="ph-bold ph-check-circle" aria-hidden="true"></i><span>Supraventricular and fusion beats are not, yet</span></li><li><i class="ph-bold ph-check-circle" aria-hidden="true"></i><span>Rhythm rules are not validated on annotated episodes</span></li></ul>
     </div>
+    <div class="lp-panel">
+      <div class="lp-panel-h"><span>Held-out test results</span><span>MIT-BIH DS2, 49,692 beats</span></div>
+      <div class="lp-bars">
+        <div class="lp-bar"><span>Normal sensitivity</span><span class="t"><span class="f" style="--v:0.933"></span></span><span class="n" data-count="0.933" data-dec="3">0.933</span></div>
+        <div class="lp-bar"><span>Ventricular sensitivity</span><span class="t"><span class="f" style="--v:0.943"></span></span><span class="n" data-count="0.943" data-dec="3">0.943</span></div>
+        <div class="lp-bar" data-tone="warn"><span>Supraventricular</span><span class="t"><span class="f" style="--v:0.238"></span></span><span class="n" data-count="0.238" data-dec="3">0.238</span></div>
+        <div class="lp-bar" data-tone="warn"><span>Fusion sensitivity</span><span class="t"><span class="f" style="--v:0.028"></span></span><span class="n" data-count="0.028" data-dec="3">0.028</span></div>
+      </div>
+      <div class="lp-legend"><span><i class=""></i>Detected well</span><span><i class="warn"></i>Detected poorly</span></div>
+    </div>
   </div>
 </section>
 <script src="js/config.js"></script>
