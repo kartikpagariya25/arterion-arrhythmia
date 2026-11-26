@@ -86,3 +86,12 @@ select { background: color-mix(in srgb, var(--card) 85%, transparent); border: 1
 .vitals { top: 100px; }
 @media (max-width: 980px) { .deck { grid-template-columns: 1fr; } .vitals { position: static; } }
 @media (max-width: 560px) { .card { padding: 16px; } .tile.hr b { font-size: 60px; } .counts b { font-size: 20px; } }
+
+/* dark counterparts for tinted alerts */
+html[data-theme="dark"] .notice, html[data-theme="dark"] .note { background: rgba(251, 191, 36, .12); border-color: rgba(251, 191, 36, .35); color: #fcd34d; }
+html[data-theme="dark"] .notice.err, html[data-theme="dark"] .note.err { background: rgba(244, 63, 94, .14); border-color: rgba(244, 63, 94, .4); color: #fda4af; }
+html[data-theme="dark"] .note.info { background: rgba(96, 165, 250, .14); border-color: rgba(96, 165, 250, .35); color: #bfdbfe; }
+html[data-theme="dark"] .notice code, html[data-theme="dark"] .note code { background: rgba(255, 255, 255, .1); color: inherit; }
+
+html[data-theme="dark"] .banner.ok b { color: #86efac; } html[data-theme="dark"] .banner.warn b { color: #fcd34d; } html[data-theme="dark"] .banner.crit b { color: #e9d5ff; }
+html[data-theme="dark"] .screen { box-shadow: inset 0 0 0 1px rgba(167, 139, 250, .28); }
