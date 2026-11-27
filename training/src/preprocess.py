@@ -2,7 +2,7 @@ import numpy as np
 from scipy.signal import butter, sosfiltfilt, resample_poly
 from fractions import Fraction
 
-from config import SAMPLING_RATE, BEAT_WINDOW, PRE_R, POST_R, MIN_PEAK_DISTANCE_MS
+from config import SAMPLING_RATE, PRE_R, POST_R, MIN_PEAK_DISTANCE_MS
 from config import BANDPASS_LOW, BANDPASS_HIGH, BANDPASS_ORDER
 
 

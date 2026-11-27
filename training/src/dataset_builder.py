@@ -4,7 +4,7 @@ import wfdb
 
 from config import (
     MITDB_DIR, PROCESSED_DIR, AAMI_MAP, CLASSES,
-    EXCLUDED_RECORDS, DS1_RECORDS, DS2_RECORDS, SEED,
+    DS1_RECORDS, DS2_RECORDS,
 )
 from preprocess import bandpass_filter, extract_beat_window, normalize_beat, compute_rr_features
 
